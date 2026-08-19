@@ -15,6 +15,24 @@ namespace SimplePostApi.Controllers
             _config = config;
         }
 
+        [HttpGet("current")]public async Task<IActionResult> GetCurrentCounter()
+{
+    var connString = _config.GetConnectionString("AzureSql");
+
+    using (var conn = new SqlConnection(connString))
+    {
+        await conn.OpenAsync();
+
+        using (var cmd = new SqlCommand("SELECT CounterValue FROM MMOrderCounter", conn))
+        {
+            var result = await cmd.ExecuteScalarAsync();
+            return Ok(new { currentValue = result });
+        }
+    }
+}
+
+
+
         [HttpPost("next")]
         public async Task<IActionResult> GetNextOrderNumber()
         {
