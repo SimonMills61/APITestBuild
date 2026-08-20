@@ -25,11 +25,12 @@ jobs:
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
-        working-directory: ./APITestBuild/SimplePostApi
-
+        working-directory: ./SimplePostApi
+      
       - name: dotnet publish
         run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
-        working-directory: ./APITestBuild/SimplePostApi
+        working-directory: ./SimplePostApi
+
 
 
       - name: Upload artifact for deployment job
